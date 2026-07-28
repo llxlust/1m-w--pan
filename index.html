@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Anniversary ❤️</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Dancing+Script:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Poppins;
+        background: #090914;
+        color: #fff;
+        overflow-x: hidden;
+      }
+      .bg {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(135deg, #090914, #24133d, #5d245f);
+        background-size: 300% 300%;
+        animation: bg 15s infinite alternate;
+        z-index: -3;
+      }
+      @keyframes bg {
+        to {
+          background-position: 100% 100%;
+        }
+      }
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+      }
+      .card {
+        max-width: 800px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        padding: 40px;
+        border-radius: 30px;
+      }
+      h1 {
+        font-family: "Dancing Script";
+        font-size: 72px;
+      }
+      #typing {
+        height: 32px;
+        margin: 15px 0;
+        color: #ffd3e2;
+      }
+      .photo {
+        width: 220px;
+        height: 220px;
+        margin: 20px auto;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 5px solid rgba(255, 255, 255, 0.3);
+      }
+      .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      button {
+        padding: 15px 30px;
+        border: none;
+        border-radius: 99px;
+        background: #ff4f8b;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      .gallery {
+        display: none;
+        padding: 60px 6vw 100px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-auto-rows: 220px;
+        gap: 18px;
+      }
+      .item {
+        overflow: hidden;
+        border-radius: 24px;
+        position: relative;
+      }
+      .item.large {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+      .item.wide {
+        grid-column: span 2;
+      }
+      .item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.5s;
+      }
+      .item:hover img {
+        transform: scale(1.08);
+      }
+      .caption {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 14px;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        font-size: 14px;
+      }
+      canvas {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg"></div>
+    <canvas id="fw"></canvas>
+
+    <section id="hero" class="hero">
+      <div class="card">
+        <h1>Happy Anniversary ❤️</h1>
+        <div id="typing"></div>
+        <div class="photo">
+          <img src="/assets/10.PNG" />
+        </div>
+        <p>Thank you for making every ordinary day feel extraordinary.</p>
+        <button onclick="celebrate()">Celebrate 🎉</button>
+      </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+      <h2
+        style="
+          text-align: center;
+          font-size: 42px;
+          margin-bottom: 40px;
+          font-family: &quot;Dancing Script&quot;;
+        "
+      >
+        Our Memories
+      </h2>
+      <div class="grid">
+        <div class="item large">
+          <img src="/assets/5.PNG" />
+          <div class="caption">Help me !</div>
+        </div>
+        <div class="item">
+          <img src="/assets/6.PNG" />
+          <div class="caption">Aquarium Date</div>
+        </div>
+        <div class="item">
+          <img src="/assets/8.PNG" />
+          <div class="caption">My Personal hair dryer</div>
+        </div>
+        <div class="item wide">
+          <img src="/assets/12.jpg" />
+          <div class="caption">Bangsaen !</div>
+        </div>
+        <div class="item">
+          <img src="/assets/13.jpg" />
+          <div class="caption">Best pillow</div>
+        </div>
+        <div class="item">
+          <img src="/assets/41.jpg" />
+          <div class="caption">Beach?</div>
+        </div>
+        <div class="item">
+          <img src="/assets/42.jpg" />
+          <div class="caption">Bansuan ja</div>
+        </div>
+        <div class="item">
+          <img src="/assets/43.jpg" />
+          <div class="caption">We both just a kid</div>
+        </div>
+        <div class="item">
+          <img src="/assets/44.PNG" />
+          <div class="caption">Suhshi Lover</div>
+        </div>
+        <div class="item">
+          <img src="/assets/45.jpg" />
+          <div class="caption">TK & P ?</div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const msg = "Every moment with you is my favorite memory.";
+      let i = 0;
+      (function t() {
+        if (i < msg.length) {
+          typing.textContent += msg[i++];
+          setTimeout(t, 50);
+        }
+      })();
+
+      gsap.from(".card", {
+        y: 80,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out",
+      });
+
+      const c = document.getElementById("fw"),
+        ctx = c.getContext("2d");
+      function resize() {
+        c.width = innerWidth;
+        c.height = innerHeight;
+      }
+      resize();
+      onresize = resize;
+      let p = [];
+      function boom() {
+        for (let k = 0; k < 220; k++)
+          p.push({
+            x: innerWidth / 2,
+            y: innerHeight / 2,
+            vx: (Math.random() - 0.5) * 12,
+            vy: (Math.random() - 0.5) * 12,
+            l: 120,
+          });
+      }
+      (function a() {
+        ctx.clearRect(0, 0, c.width, c.height);
+        p = p.filter((o) => o.l-- > 0);
+        p.forEach((o) => {
+          o.x += o.vx;
+          o.y += o.vy;
+          ctx.fillStyle = `hsl(${o.l * 3},100%,60%)`;
+          ctx.beginPath();
+          ctx.arc(o.x, o.y, 2, 0, 6.28);
+          ctx.fill();
+        });
+        requestAnimationFrame(a);
+      })();
+
+      function celebrate() {
+        boom();
+        let tl = gsap.timeline();
+        tl.to(".card", { scale: 1.05, repeat: 3, yoyo: true, duration: 0.15 })
+          .to("#hero", { opacity: 0, y: -120, duration: 0.8 })
+          .add(() => {
+            hero.style.display = "none";
+            gallery.style.display = "block";
+          })
+          .from(".gallery", { opacity: 0, duration: 0.4 })
+          .from(".item", {
+            opacity: 0,
+            scale: 0.4,
+            rotation: 8,
+            stagger: 0.1,
+            ease: "back.out(1.8)",
+          });
+      }
+    </script>
+  </body>
+</html>
